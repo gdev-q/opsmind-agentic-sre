@@ -1,0 +1,8 @@
+2026-11-14 09:41:07.331 ERROR [http-nio-8080-exec-14] c.s.session.RedisSessionStore - Failed to write session sess:9f2c1a77
+org.springframework.data.redis.RedisSystemException: Error in execution; nested exception is io.lettuce.core.RedisCommandExecutionException: OOM command not allowed when used memory > 'maxmemory'.
+	at org.springframework.data.redis.connection.lettuce.LettuceExceptionConverter.convert(LettuceExceptionConverter.java:54)
+	at org.springframework.data.redis.core.RedisTemplate.execute(RedisTemplate.java:224)
+	at com.shop.session.RedisSessionStore.save(RedisSessionStore.java:71)
+Caused by: io.lettuce.core.RedisCommandExecutionException: OOM command not allowed when used memory > 'maxmemory'.
+2026-11-14 09:41:07.340 WARN  [metrics] c.s.RedisMetrics - redis used_memory=4294967296 maxmemory=4294967296 maxmemory_policy=noeviction evicted_keys=0 connected_clients=612
+2026-11-14 09:41:08.002 ERROR [http-nio-8080-exec-02] c.s.cart.CartService - cart write failed, users are being logged out

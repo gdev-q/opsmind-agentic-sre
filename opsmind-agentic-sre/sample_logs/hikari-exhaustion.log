@@ -1,0 +1,13 @@
+2026-11-14 11:05:22.614 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m2s)
+2026-11-14 11:05:30.118 ERROR [http-nio-8080-exec-87] o.a.c.c.C.[.[.[/].[dispatcherServlet] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.] with root cause
+java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30000ms.
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:696)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:197)
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:162)
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:128)
+	at org.springframework.jdbc.datasource.DataSourceUtils.fetchConnection(DataSourceUtils.java:158)
+	at com.shop.orders.repo.OrderRepository.findByCustomer(OrderRepository.java:52)
+2026-11-14 11:05:30.121 WARN  [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10, active=10, idle=0, waiting=84)
+2026-11-14 11:05:41.907 WARN  [pool-leak-detector] com.zaxxer.hikari.pool.ProxyLeakTask - Connection leak detection triggered for com.mysql.cj.jdbc.ConnectionImpl@5b2a1c3e on thread http-nio-8080-exec-12, stack trace follows
+java.lang.Exception: Apparent connection leak detected
+	at com.shop.orders.service.InvoiceService.generate(InvoiceService.java:118)

@@ -1,0 +1,11 @@
+2026-11-14 02:17:41,208 INFO  [order-events-consumer-0] c.s.o.OrderEventListener - Processed batch size=500 in 312044 ms
+2026-11-14 02:17:43,512 WARN  [order-events-consumer-0] o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-order-processor-1, groupId=order-processor] Offset commit failed on partition order-events-3 at offset 18839204: The coordinator is not aware of this member.
+2026-11-14 02:17:43,513 ERROR [order-events-consumer-0] o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-order-processor-1, groupId=order-processor] Attempt to heartbeat failed since group is rebalancing
+org.apache.kafka.clients.consumer.CommitFailedException: Commit cannot be completed since the group has already rebalanced and assigned the partitions to another member. This means that the time between subsequent calls to poll() was longer than the configured max.poll.interval.ms, which typically implies that the poll loop is spending too much time message processing. You can address this either by increasing max.poll.interval.ms or by reducing the maximum size of batches returned in poll() with max.poll.records.
+	at org.apache.kafka.clients.consumer.internals.ConsumerCoordinator.sendOffsetCommitRequest(ConsumerCoordinator.java:1139)
+	at org.apache.kafka.clients.consumer.internals.ConsumerCoordinator.commitOffsetsSync(ConsumerCoordinator.java:1004)
+	at org.apache.kafka.clients.consumer.KafkaConsumer.commitSync(KafkaConsumer.java:1495)
+	at com.shop.orders.OrderEventListener.consume(OrderEventListener.java:87)
+2026-11-14 02:17:44,020 WARN  [order-events-consumer-0] o.a.k.c.c.i.ConsumerCoordinator - [Consumer clientId=consumer-order-processor-1, groupId=order-processor] Member consumer-order-processor-1-7f3a sending LeaveGroup request to coordinator broker-2:9092 (id: 2147483645 rack: null) due to consumer poll timeout has expired.
+2026-11-14 02:17:49,771 INFO  [order-events-consumer-0] o.a.k.c.c.i.ConsumerCoordinator - (Re-)joining group
+2026-11-14 02:18:12,004 WARN  [lag-monitor] c.s.o.LagMonitor - consumer lag high: group=order-processor topic=order-events total_lag=2418330 (threshold=100000)

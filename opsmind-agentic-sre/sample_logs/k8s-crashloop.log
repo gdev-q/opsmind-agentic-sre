@@ -1,0 +1,31 @@
+$ kubectl get pods -n payments
+NAME                               READY   STATUS             RESTARTS      AGE
+payment-api-6d8f9c7b5-x2k9q        0/1     CrashLoopBackOff   7 (32s ago)   14m
+
+$ kubectl describe pod payment-api-6d8f9c7b5-x2k9q -n payments
+Containers:
+  payment-api:
+    State:          Waiting
+      Reason:       CrashLoopBackOff
+    Last State:     Terminated
+      Reason:       OOMKilled
+      Exit Code:    137
+      Started:      Sat, 14 Nov 2026 03:02:11 +0000
+      Finished:     Sat, 14 Nov 2026 03:02:58 +0000
+    Restart Count:  7
+    Limits:
+      memory:  512Mi
+    Requests:
+      memory:  256Mi
+Events:
+  Type     Reason     Age                  From               Message
+  ----     ------     ----                 ----               -------
+  Normal   Scheduled  14m                  default-scheduler  Successfully assigned payments/payment-api-6d8f9c7b5-x2k9q to node-pool-3-7vq2
+  Warning  BackOff    2m (x41 over 14m)    kubelet            Back-off restarting failed container payment-api in pod payment-api-6d8f9c7b5-x2k9q_payments
+
+$ kubectl logs payment-api-6d8f9c7b5-x2k9q -n payments --previous --tail=5
+2026-11-14T03:02:49.410Z INFO  Loaded 1,204,331 fraud-rule entries into in-memory cache
+2026-11-14T03:02:55.882Z WARN  GC overhead: heap 498MB / 512MB, full GC took 1.9s
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+	at java.base/java.util.HashMap.resize(HashMap.java:700)
+	at com.shop.payments.fraud.RuleCache.load(RuleCache.java:64)
